@@ -30,6 +30,6 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/external/cutlass/include
         ${PROJECT_SOURCE_DIR}/external/cutlass/tools/util/include
 )
-
+target_link_libraries(llm_components_cuda PRIVATE curand)
 set_target_properties(llm_components_cuda PROPERTIES
         CUDA_SEPARABLE_COMPILATION ON)
