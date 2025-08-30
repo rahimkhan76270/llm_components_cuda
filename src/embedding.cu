@@ -9,7 +9,7 @@ __global__ void GetEmbeddingKernel(const float * EmbeddingWeights,const int64_t*
     if (row<batch_size && col<num_tokens) {
         int64_t token=tokens[idx];
         for (int i=0;i<embedding_dim;i++) {
-            output[idx*embedding_dim+i]=EmbeddingWeights[token*embedding_dim+i];
+            output[i*1+col*embedding_dim+row*embedding_dim*num_tokens]=EmbeddingWeights[token*embedding_dim+i];
         }
     }
 }
