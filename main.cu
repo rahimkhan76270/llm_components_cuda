@@ -1,8 +1,9 @@
 #include <iostream>
+#include <vector>
 #include "utils.cuh"
 #include "embedding.cuh"
 #include "positional_encodings.cuh"
-#include <vector>
+
 int main() {
     int64_t vocab_size=50;
     int64_t embedding_dim=5;
