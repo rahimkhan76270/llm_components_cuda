@@ -1,7 +1,7 @@
 #include <iostream>
-#include <fmt/ranges.h>
 #include "utils.cuh"
 #include "embedding.cuh"
+#include "positional_encodings.cuh"
 #include <vector>
 int main() {
     int64_t vocab_size=50;
@@ -21,6 +21,7 @@ int main() {
     cudaMemcpy(tokens_d,tokens.data(),num_tokens*batch_size*sizeof(int64_t),cudaMemcpyDefault);
     cudaMemcpy(embedding_matrix_d,embedding_matrix.data(),vocab_size*embedding_dim*sizeof(float),cudaMemcpyDefault);
     GetEmbedding(embedding_matrix_d,tokens_d,output_embeds_d,num_tokens,batch_size,embedding_dim);
+    AddAbsolutePositionalEncodings(output_embeds_d,num_tokens,embedding_dim,embedding_dim,batch_size);
     cudaMemcpy(output_embeds.data(),output_embeds_d,batch_size*num_tokens*embedding_dim*sizeof(float),cudaMemcpyDefault);
     cudaFree(embedding_matrix_d);
     cudaFree(tokens_d);
@@ -46,6 +47,5 @@ int main() {
         }
         std::cout<<std::endl;
     }
-    fmt::print("hello");
     return 0;
 }
